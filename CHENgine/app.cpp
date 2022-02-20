@@ -6,6 +6,10 @@ namespace chengine
     App::~App(){}
     void App::run()
     {
-        while(true);
+        while(true)
+        {
+            CE_CORE_WARN("default app running");
+            Sleep(1000);
+        }
     }
 }

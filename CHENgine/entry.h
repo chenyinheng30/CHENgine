@@ -4,6 +4,10 @@
 extern chengine::App* chengine::creat_app();
 int main()
 {
+
+    chengine::Log::init();
+    CE_CORE_WARN("Initialized Log!");
+
     auto app = chengine::creat_app();
     app->run();
     delete app;

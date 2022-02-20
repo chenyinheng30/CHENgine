@@ -1,0 +1,7 @@
+LICENSE+VERSION
+self:
+(none)
+(none)
+spdlog:
+(v1.9.2)
+(MIT)[./spdlog/LICENSE]

@@ -3,3 +3,5 @@ sandbox*
 *.o
 *.exe
 *.s
+tools
+object

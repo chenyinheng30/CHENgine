@@ -1,22 +1,27 @@
-#pragma one
+#pragma once
 #include<memory>
 #include"spdlog/spdlog.h"
 namespace chengine
 {
     class Log
     {
+        static std::vector<spdlog::sink_ptr> __sinks;
         static std::shared_ptr<spdlog::logger> __core_logger;
         static std::shared_ptr<spdlog::logger> __client_logger;
+        static void init_sinks();
         static void init_core_logger();
+        static void init_client_logger();
     public:
         inline static std::shared_ptr<spdlog::logger>& get_core_logger(){return __core_logger;}
         inline static std::shared_ptr<spdlog::logger>& get_client_logger(){return __client_logger;}
-        static void init_client_logger();
         static void init();
     };
 
 }
 // Log Macros
+#ifndef __DEFAULT_LOG_FORMAT
+#define __DEFAULT_LOG_FORMAT "[%D %T.%e]%^<%l>%n%$-%t: %v"
+#endif
 #define CE_CORE_TRACE(...)  ::chengine::Log::get_core_logger()->trace(__VA_ARGS__)
 #define CE_CORE_INFO(...)   ::chengine::Log::get_core_logger()->info(__VA_ARGS__)
 #define CE_CORE_WARN(...)   ::chengine::Log::get_core_logger()->warn(__VA_ARGS__)

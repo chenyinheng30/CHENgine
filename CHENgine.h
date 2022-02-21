@@ -1,4 +1,4 @@
-#pragma one
+#pragma once
 
 #include"CHENgine/app.h"
 #include"CHENgine/log.h"

@@ -1,6 +1,5 @@
 .vscode
 sandbox*
-spdlog
 *.o
 *.exe
 *.s

@@ -1,8 +1,6 @@
 #pragma one
 #include<memory>
 #include"spdlog/spdlog.h"
-#ifndef CHENGINE_LOG_H
-#define CHENGINE_LOG_H
 namespace chengine
 {
     class Log
@@ -18,7 +16,6 @@ namespace chengine
     };
 
 }
-#endif //CHENGINE_LOG_H
 // Log Macros
 #define CE_CORE_TRACE(...)  ::chengine::Log::get_core_logger()->trace(__VA_ARGS__)
 #define CE_CORE_INFO(...)   ::chengine::Log::get_core_logger()->info(__VA_ARGS__)

@@ -1,5 +1,5 @@
 #pragma one
-
+/*do not include other file/
 #ifdef __CE_IN_WINDOWS
 extern chengine::App* chengine::creat_app();
 int main()

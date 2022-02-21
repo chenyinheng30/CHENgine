@@ -1,4 +1,4 @@
-#pragma one
+#pragma once
 #include"core.h"
 #include"log.h"
 namespace chengine

@@ -1,4 +1,4 @@
-#pragma one
+#pragma once
 #ifdef __CE_IN_WINDOWS
     #include<Windows.h>
 #elif defined(__CE_IN_LINUX)

@@ -8,4 +8,3 @@
 #endif
 
 //include other file
-#include"log.h"

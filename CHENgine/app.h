@@ -1,6 +1,6 @@
 #pragma one
 #include"core.h"
-
+#include"log.h"
 namespace chengine
 {
     class App

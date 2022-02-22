@@ -8,7 +8,9 @@ int main()
     chengine::Log::init();
     CE_CORE_WARN("Initialized Log!");
 
+    CE_CORE_TRACE("Creating your app...");
     auto app = chengine::creat_app();
+    CE_CORE_TRACE("Created your app!");
     app->run();
     delete app;
     return 0;

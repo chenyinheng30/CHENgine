@@ -1,6 +1,4 @@
 #include"log.h"
-#include"spdlog/sinks/stdout_color_sinks.h"
-#include "spdlog/sinks/rotating_file_sink.h"
 
 namespace chengine
 {
@@ -15,16 +13,18 @@ namespace chengine
         __sinks.push_back(console_sink);
         __sinks.push_back(file_sink);
     }
+#define CONSOLE    0
+#define FILE       1
     void Log::init_core_logger()
     {
 		__core_logger = std::make_shared<spdlog::logger>("CHENgine", begin(__sinks), end(__sinks));
-		__core_logger->set_level(spdlog::level::trace);
+		__core_logger->set_level(CE_LEVEL_TRACE);
         __core_logger->set_pattern(__DEFAULT_LOG_FORMAT);
     }
     void Log::init_client_logger()
     {
 		__client_logger = std::make_shared<spdlog::logger>("your_app", begin(__sinks), end(__sinks));
-		__client_logger->set_level(spdlog::level::trace);
+		__client_logger->set_level(CE_LEVEL_TRACE);
         __client_logger->set_pattern(__DEFAULT_LOG_FORMAT);
     }
     void Log::init()
@@ -33,4 +33,14 @@ namespace chengine
         Log::init_core_logger();
         Log::init_client_logger();
     }
+    void Log::set_stdout_level(chengine_log_level level)
+    {
+        __sinks[CONSOLE]->set_level(level);
+    }
+    void Log::set_your_pattern(const std::string &pattern)
+    {
+        __client_logger->set_pattern(pattern);
+    }
+#undef CONSOLE
+#undef FILE
 }

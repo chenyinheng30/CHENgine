@@ -1,10 +1,23 @@
 #pragma once
 #include<memory>
 #include"spdlog/spdlog.h"
+#include"spdlog/sinks/stdout_color_sinks.h"
+#include "spdlog/sinks/rotating_file_sink.h"
+
+#define CE_LEVEL_TRACE    spdlog::level::trace
+#define CE_LEVEL_DEBUG    spdlog::level::debug
+#define CE_LEVEL_INFO     spdlog::level::info
+#define CE_LEVEL_WARN     spdlog::level::warn
+#define CE_LEVEL_ERROR    spdlog::level::err
+#define CE_LEVEL_CRITICAL spdlog::level::critical
+#define CE_LEVEL_OFF      spdlog::level::off
+typedef spdlog::level::level_enum chengine_log_level;
 namespace chengine
 {
+
     class Log
     {
+        
         static std::vector<spdlog::sink_ptr> __sinks;
         static std::shared_ptr<spdlog::logger> __core_logger;
         static std::shared_ptr<spdlog::logger> __client_logger;
@@ -15,8 +28,10 @@ namespace chengine
         inline static std::shared_ptr<spdlog::logger>& get_core_logger(){return __core_logger;}
         inline static std::shared_ptr<spdlog::logger>& get_client_logger(){return __client_logger;}
         static void init();
+        static void set_stdout_level(chengine_log_level level);
+        static void set_your_pattern(const std::string& pattern);
+        static void set_your_name(const std::string& name);
     };
-
 }
 // Log Macros
 #ifndef __DEFAULT_LOG_FORMAT

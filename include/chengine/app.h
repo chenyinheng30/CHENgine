@@ -1,6 +1,6 @@
 #pragma once
-#include"core.h"
-#include"log.h"
+#include"chengine/core.h"
+#include"chengine/log.h"
 namespace chengine
 {
     class App

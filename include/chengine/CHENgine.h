@@ -1,5 +1,7 @@
 #pragma once
 
+#include"chengine/core.h"
+
 #include"chengine/app.h"
 #include"chengine/log.h"
 

@@ -8,7 +8,7 @@ namespace chengine
     {
         while(true)
         {
-            CE_CORE_WARN("default app running");
+            CE_CLIENT_WARN("default app running");
             Sleep(1000);
         }
     }

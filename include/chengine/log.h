@@ -44,7 +44,7 @@ namespace chengine
 #define CE_CORE_WARN(...)   ::chengine::Log::get_core_logger()->warn(__VA_ARGS__)
 #define CE_CORE_ERROR(...)  ::chengine::Log::get_core_logger()->error(__VA_ARGS__)
 #define CE_CORE_FATAL(...)  ::chengine::Log::get_core_logger()->fatal(__VA_ARGS__)
-#elif
+#else
 #define CE_CORE_TRACE(...)  
 #define CE_CORE_INFO(...)   
 #define CE_CORE_WARN(...)   
@@ -53,7 +53,7 @@ namespace chengine
 #endif
 
 #define CE_CLIENT_TRACE(...)    ::chengine::Log::get_client_logger()->trace(__VA_ARGS__)
-#define CE_client_INFO(...)     ::chengine::Log::get_client_logger()->info(__VA_ARGS__)
-#define CE_client_WARN(...)	    ::chengine::Log::get_client_logger()->warn(__VA_ARGS__)
-#define CE_client_ERROR(...)    ::chengine::Log::get_client_logger()->error(__VA_ARGS__)
-#define CE_client_FATAL(...)    ::chengine::Log::get_client_logger()->fatal(__VA_ARGS__)
+#define CE_CLIENT_INFO(...)     ::chengine::Log::get_client_logger()->info(__VA_ARGS__)
+#define CE_CLIENT_WARN(...)	    ::chengine::Log::get_client_logger()->warn(__VA_ARGS__)
+#define CE_CLIENT_ERROR(...)    ::chengine::Log::get_client_logger()->error(__VA_ARGS__)
+#define CE_CLIENT_FATAL(...)    ::chengine::Log::get_client_logger()->fatal(__VA_ARGS__)

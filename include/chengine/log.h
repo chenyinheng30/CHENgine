@@ -1,4 +1,6 @@
 #pragma once
+#include<map>
+#include<vector>
 #include<memory>
 #include"chengine/core.h"
 #include"spdlog/spdlog.h"
@@ -15,11 +17,10 @@
 typedef spdlog::level::level_enum chengine_log_level;
 namespace chengine
 {
-
     class Log
     {
         
-        static std::vector<spdlog::sink_ptr> __sinks;
+        static std::map<std::string,spdlog::sink_ptr> __sinks;
         static std::shared_ptr<spdlog::logger> __core_logger;
         static std::shared_ptr<spdlog::logger> __client_logger;
         static void init_sinks();

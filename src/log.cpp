@@ -27,7 +27,7 @@ namespace chengine
 		__client_logger = std::make_shared<spdlog::logger>("your_app");
         for(auto& sink : __sinks)
         {
-            __core_logger->sinks().push_back(sink.second);
+            __client_logger->sinks().push_back(sink.second);
         }
 		__client_logger->set_level(CE_LEVEL_TRACE);
         __client_logger->set_pattern(__DEFAULT_LOG_FORMAT);

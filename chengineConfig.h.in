@@ -2,3 +2,12 @@
 #define CHENGINE_VERSION_MINOR @CHENGINE_VERSION_MINOR@
 #cmakedefine __CE_IN_WINDOWS
 #cmakedefine __CE_DEBUG
+/*change below to set your LogSystem*/
+#cmakedefine CE_USING_CORE_LOG_LEVEL     __CE_LEVEL_WARN
+#cmakedefine CE_USING_CLIENT_LOG_LEVEL   __CE_LEVEL_WARN
+#cmakedefine CE_USING_LOG_FORMAT            "[%D %T.%e]%^<%l>%n%$-%t: %v"
+#cmakedefine CE_USING_LOG_FILES_SIZE     5
+#cmakedefine CE_USING_LOG_FILES_COUNT    100
+#cmakedefine CE_USING_LOG_FILES_DIR      "logs/"
+#cmakedefine CE_USING_LOG_FILES_NAME     "a_test.log"
+#cmakedefine CE_USING_YOUR_APP_NAME      "a_test_app"

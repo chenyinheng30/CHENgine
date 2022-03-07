@@ -9,30 +9,31 @@
 #define __CE_LEVEL_OFF      spdlog::level::off
 
 /*default setting*/
-#define __CE_CORE_DEFAULT_LOG_LEVEL     __CE_LEVEL_TRACE
-#define __CE_CLIENT_DEFAULT_LOG_LEVEL   __CE_LEVEL_TRACE
-#define __DEFAULT_LOG_FORMAT            "[%D %T.%e]%^<%l>%n%$-%t: %v"
+#define __CE_DEFAULT_CORE_LOG_LEVEL     __CE_LEVEL_TRACE
+#define __CE_DEFAULT_CLIENT_LOG_LEVEL   __CE_LEVEL_TRACE
+#define __CE_DEFAULT_LOG_FORMAT            "[%D %T.%e]%^<%l>%n%$-%t: %v"
 #define __CE_DEFAULT_LOG_FILES_SIZE     5
 #define __CE_DEFAULT_LOG_FILES_COUNT    100
 #define __CE_DEFAULT_LOG_FILES_DIR      "logs/"
 #define __CE_DEFAULT_LOG_FILES_NAME     "chengine.log"
+#define __CE_DEFAULT_YOUR_APP_NAME      "your_app"
 
-#ifdef CE_CORE_USING_LOG_LEVEL
-#define CE_CORE_LOG_LEVEL CE_CORE_USING_LOG_LEVEL
+#ifdef CE_USING_CORE_LOG_LEVEL
+#define CE_CORE_LOG_LEVEL CE_USING_CORE_LOG_LEVEL
 #else
-#define CE_CORE_LOG_LEVEL __CE_CORE_DEFAULT_LOG_LEVEL
+#define CE_CORE_LOG_LEVEL __CE_DEFAULT_CORE_LOG_LEVEL
 #endif
 
-#ifdef CE_CLIENT_USING_LOG_LEVEL
-#define CE_CLIENT_LOG_LEVEL CE_CLIENT_USING_LOG_LEVEL
+#ifdef CE_USING_CLIENT_LOG_LEVEL
+#define CE_CLIENT_LOG_LEVEL CE_USING_CLIENT_LOG_LEVEL
 #else
-#define CE_CLIENT_LOG_LEVEL __CE_CLIENT_DEFAULT_LOG_LEVEL
+#define CE_CLIENT_LOG_LEVEL __CE_DEFAULT_CLIENT_LOG_LEVEL
 #endif
 
-#ifdef CE_CLIENT_USING_LOG_FORMAT 
+#ifdef CE_USING_CLIENT_LOG_FORMAT 
 #define CE_CLIENT_LOG_FORMAT CE_CLIENT_LOG_FORMAT
 #else
-#define CE_CLIENT_LOG_FORMAT __DEFAULT_LOG_FORMAT
+#define CE_CLIENT_LOG_FORMAT __CE_DEFAULT_LOG_FORMAT
 #endif
 
 #ifdef CE_USING_LOG_FILES_SIZE
@@ -59,6 +60,13 @@
 #else
 #define CE_LOG_FILES_PATH CE_LOG_FILES_DIR __CE_DEFAULT_LOG_FILES_NAME
 #endif
+
+#ifdef CE_USING_YOUR_APP_NAME
+#define CE_YOUR_APP_NAME CE_USING_YOUR_APP_NAME
+#else
+#define CE_YOUR_APP_NAME __CE_DEFAULT_YOUR_APP_NAME
+#endif
+
 namespace chengine
 {
 
@@ -81,11 +89,11 @@ namespace chengine
             __core_logger->sinks().push_back(sink.second);
         }
 		__core_logger->set_level(CE_CORE_LOG_LEVEL);
-        __core_logger->set_pattern(__DEFAULT_LOG_FORMAT);
+        __core_logger->set_pattern(__CE_DEFAULT_LOG_FORMAT);
     }
     inline void Log::init_client_logger()
     {
-		__client_logger = std::make_shared<spdlog::logger>("your_app");
+		__client_logger = std::make_shared<spdlog::logger>(CE_YOUR_APP_NAME);
         for(auto& sink : __sinks)
         {
             __client_logger->sinks().push_back(sink.second);

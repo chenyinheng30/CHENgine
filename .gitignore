@@ -6,3 +6,4 @@ tools
 object
 logs
 build
+test*

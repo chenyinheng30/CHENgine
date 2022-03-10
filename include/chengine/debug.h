@@ -17,7 +17,9 @@ namespace chengine
             CE_FOR_DEBUG
             (
                 virtual std::string get_class_name()const=0;
+                virtual std::string to_string()const=0;
             )
     };
 }
-#define CE_DEFINE_GET_CLASS_NAME(class) CE_FOR_DEBUG(virtual std::string get_class_name()const{return #class;};)
+#define CE_DEBUG_DEFINE_GET_CLASS_NAME(class) CE_FOR_DEBUG(virtual std::string get_class_name()const{return #class;};)
+#define CE_DEBUG_DEFINE_TO_STRING(...) CE_FOR_DEBUG(virtual std::string to_string()const{__VA_ARGS__};)

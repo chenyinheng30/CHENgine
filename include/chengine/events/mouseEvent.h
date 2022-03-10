@@ -2,7 +2,14 @@
 #include"chengine/events/event.h"
 
 namespace chengine{
-    class MouseButtonPressed:public Event
+    class MouseEvent:public Event
+    {
+    public:
+        CE_DEFINE_GET_EVENT_CATEGORY(EventCategoryInput:1,EventCategoryMouse:1);
+    protected:
+        MouseEvent(){};
+    };
+    class MouseButtonPressed:public MouseEvent
     {
         int x,y;
     public:
@@ -10,10 +17,9 @@ namespace chengine{
         int getX()const{return x;};
         int getY()const{return y;};
         CE_DEFINE_GET_STATIC_TYPE(MouseButtonPressed);
-        CE_DEFINE_GET_EVENT_CATEGORY(EventCategoryInput:1,EventCategoryMouse:1);
-        CE_DEFINE_GET_CLASS_NAME(MouseButtonPressed);
+        CE_DEBUG_DEFINE_GET_CLASS_NAME(MouseButtonPressed);
     };
-    class MouseButtonReleased:public Event
+    class MouseButtonReleased:public MouseEvent
     {
         int x,y;
     public:
@@ -21,10 +27,9 @@ namespace chengine{
         int getX()const{return x;};
         int getY()const{return y;};
         CE_DEFINE_GET_STATIC_TYPE(MouseButtonReleased);
-        CE_DEFINE_GET_EVENT_CATEGORY(EventCategoryInput:1,EventCategoryMouse:1);
-        CE_DEFINE_GET_CLASS_NAME(MouseButtonReleased);
+        CE_DEBUG_DEFINE_GET_CLASS_NAME(MouseButtonReleased);
     };
-    class MouseMoved:public Event
+    class MouseMoved:public MouseEvent
     {
         int x,y;
     public:
@@ -32,11 +37,10 @@ namespace chengine{
         int getX()const{return x;};
         int getY()const{return y;};
         CE_DEFINE_GET_STATIC_TYPE(MouseMoved);
-        CE_DEFINE_GET_EVENT_CATEGORY(EventCategoryInput:1,EventCategoryMouse:1);
-        CE_DEFINE_GET_CLASS_NAME(MouseMoved);
+        CE_DEBUG_DEFINE_GET_CLASS_NAME(MouseMoved);
 
     };
-    class MouseScrolled:public Event
+    class MouseScrolled:public MouseEvent
     {
         int xLine,yLine;
     public:
@@ -44,7 +48,6 @@ namespace chengine{
         int getXLine()const{return xLine;};
         int getYLine()const{return yLine;};
         CE_DEFINE_GET_STATIC_TYPE(MouseScrolled);
-        CE_DEFINE_GET_EVENT_CATEGORY(EventCategoryInput:1,EventCategoryMouse:1);
-        CE_DEFINE_GET_CLASS_NAME(MouseScrolled);
+        CE_DEBUG_DEFINE_GET_CLASS_NAME(MouseScrolled);
     };
 }

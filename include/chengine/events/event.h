@@ -39,14 +39,15 @@ namespace chengine
         {
             __event_map[EVENT::get_static_type()] = fn;
         };
-        FN dispatch(Event* e)
+        bool dispatch(Event* e)
         {
-            auto fn=__event_map.find(e->get_event_type());
-            if(fn!=__event_map.end())
+            auto menber=__event_map.find(e->get_event_type());
+            if(menber!=__event_map.end())
             {
-                return fn->second;
+                menber->second(e);
+                return true;
             }
-            
+            return false;
         };
     };
 }

@@ -1,6 +1,6 @@
-#include"chengine/include/events/event.h"
+#include"chengine/events/event.h"
 
-unsing KeyCode=char;
+using KeyCode=char;
 
 namespace chengine {
 
@@ -10,7 +10,7 @@ namespace chengine {
 		KeyCode get_key_code() const { return __keyCode; }
 
         // 确定事件所属的类
-		CE_DEFINE_GET_EVENT_CATEGORY(EventCategoryKeyboard:1,EventCategoryInput:1);
+		CE_DEFINE_GET_EVENT_CATEGORY(EventCategoryInput:1,EventCategoryKeyboard:1);
 	protected:
 		KeyEvent(const KeyCode keycode)
 			: __keyCode(keycode) {}

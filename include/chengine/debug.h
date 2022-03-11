@@ -1,5 +1,6 @@
 #pragma once
 #include<string>
+#include <sstream>
 
 #include"chengine/core.h"
 namespace chengine

@@ -44,7 +44,8 @@ namespace chengine
             auto menber=__event_map.find(e->get_event_type());
             if(menber!=__event_map.end())
             {
-                menber->second(e);
+                if(menber->second(e))
+                    e->handle();
                 return true;
             }
             return false;

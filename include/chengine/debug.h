@@ -13,13 +13,13 @@ namespace chengine
     class Debug
     {
     public:
-            Debug() = default;
-            ~Debug() = default;
-            CE_FOR_DEBUG
-            (
-                virtual std::string get_class_name()const=0;
-                virtual std::string to_string()const=0;
-            )
+    Debug() = default;
+    ~Debug() = default;
+    CE_FOR_DEBUG
+    (
+        virtual std::string get_class_name()const=0;
+        virtual std::string to_string()const=0;
+    )
     };
 }
 #define CE_DEBUG_DEFINE_GET_CLASS_NAME(class) CE_FOR_DEBUG(virtual std::string get_class_name()const{return #class;};)

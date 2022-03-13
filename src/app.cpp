@@ -8,8 +8,8 @@ namespace chengine
     {
         while(true)
         {
-            CE_CLIENT_WARN("default app running");
-            Sleep(1000);
+    CE_CLIENT_WARN("default app running");
+    Sleep(1000);
         }
     }
 }

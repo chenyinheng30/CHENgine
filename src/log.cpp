@@ -11,7 +11,7 @@
 /*default setting*/
 #define __CE_DEFAULT_CORE_LOG_LEVEL     __CE_LEVEL_TRACE
 #define __CE_DEFAULT_CLIENT_LOG_LEVEL   __CE_LEVEL_TRACE
-#define __CE_DEFAULT_LOG_FORMAT            "[%D %T.%e]%^<%l>%n%$-%t: %v"
+#define __CE_DEFAULT_LOG_FORMAT    "[%D %T.%e]%^<%l>%n%$-%t: %v"
 #define __CE_DEFAULT_LOG_FILES_SIZE     5
 #define __CE_DEFAULT_LOG_FILES_COUNT    100
 #define __CE_DEFAULT_LOG_FILES_DIR      "logs/"
@@ -86,7 +86,7 @@ namespace chengine
 		__core_logger = std::make_shared<spdlog::logger>("CHENgine");
         for(auto& sink : __sinks)
         {
-            __core_logger->sinks().push_back(sink.second);
+    __core_logger->sinks().push_back(sink.second);
         }
 		__core_logger->set_level(CE_CORE_LOG_LEVEL);
         __core_logger->set_pattern(__CE_DEFAULT_LOG_FORMAT);
@@ -96,7 +96,7 @@ namespace chengine
 		__client_logger = std::make_shared<spdlog::logger>(CE_YOUR_APP_NAME);
         for(auto& sink : __sinks)
         {
-            __client_logger->sinks().push_back(sink.second);
+    __client_logger->sinks().push_back(sink.second);
         }
 		__client_logger->set_level(CE_CLIENT_LOG_LEVEL);
         __client_logger->set_pattern(CE_CLIENT_LOG_FORMAT);

@@ -28,9 +28,9 @@ namespace chengine {
 
         //事件转字符串
         CE_DEBUG_DEFINE_TO_STRING(
-            std::stringstream ss;
-            ss << this->get_class_name() <<": " << __keyCode << " (" << __repeatCount << " repeats)";
-            return ss.str();
+    std::stringstream ss;
+    ss << this->get_class_name() <<": " << __keyCode << " (" << __repeatCount << " repeats)";
+    return ss.str();
         );
         // 确定事件类型
         CE_DEFINE_GET_STATIC_TYPE(KeyPressedEvent);
@@ -47,9 +47,9 @@ namespace chengine {
         
         //事件转字符串
         CE_DEBUG_DEFINE_TO_STRING(
-            std::stringstream ss;
-            ss << this->get_class_name() <<": " << __keyCode;
-            return ss.str();
+    std::stringstream ss;
+    ss << this->get_class_name() <<": " << __keyCode;
+    return ss.str();
         );
 		// 确定事件类型
         CE_DEFINE_GET_STATIC_TYPE(KeyReleasedEvent);
@@ -64,9 +64,9 @@ namespace chengine {
 
         //事件转字符串
         CE_DEBUG_DEFINE_TO_STRING(
-            std::stringstream ss;
-            ss << this->get_class_name() <<": " << __keyCode;
-            return ss.str();
+    std::stringstream ss;
+    ss << this->get_class_name() <<": " << __keyCode;
+    return ss.str();
         );
 		// 确定事件类型
         CE_DEFINE_GET_STATIC_TYPE(KeyTypedEvent);

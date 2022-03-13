@@ -19,9 +19,9 @@ namespace chengine{
         CE_DEFINE_GET_STATIC_TYPE(MouseButtonPressed);
         CE_DEBUG_DEFINE_GET_CLASS_NAME(MouseButtonPressed);
         CE_DEBUG_DEFINE_TO_STRING(
-            std::stringstream ss;
-            ss << this->get_class_name() <<": (" << x << "," << y<<")";
-            return ss.str();
+    std::stringstream ss;
+    ss << this->get_class_name() <<": (" << x << "," << y<<")";
+    return ss.str();
         );
     };
     class MouseButtonReleased:public MouseEvent
@@ -34,9 +34,9 @@ namespace chengine{
         CE_DEFINE_GET_STATIC_TYPE(MouseButtonReleased);
         CE_DEBUG_DEFINE_GET_CLASS_NAME(MouseButtonReleased);
         CE_DEBUG_DEFINE_TO_STRING(
-            std::stringstream ss;
-            ss << this->get_class_name() <<": (" << x << "," << y<<")";
-            return ss.str();
+    std::stringstream ss;
+    ss << this->get_class_name() <<": (" << x << "," << y<<")";
+    return ss.str();
         );
     };
     class MouseMoved:public MouseEvent
@@ -49,9 +49,9 @@ namespace chengine{
         CE_DEFINE_GET_STATIC_TYPE(MouseMoved);
         CE_DEBUG_DEFINE_GET_CLASS_NAME(MouseMoved);
         CE_DEBUG_DEFINE_TO_STRING(
-            std::stringstream ss;
-            ss << this->get_class_name() <<": (" << x << "," << y<<")";
-            return ss.str();
+    std::stringstream ss;
+    ss << this->get_class_name() <<": (" << x << "," << y<<")";
+    return ss.str();
         );
     };
     class MouseScrolled:public MouseEvent
@@ -64,9 +64,9 @@ namespace chengine{
         CE_DEFINE_GET_STATIC_TYPE(MouseScrolled);
         CE_DEBUG_DEFINE_GET_CLASS_NAME(MouseScrolled);
         CE_DEBUG_DEFINE_TO_STRING(
-            std::stringstream ss;
-            ss << this->get_class_name() <<": (" << xLine << "," << yLine<<")";
-            return ss.str();
+    std::stringstream ss;
+    ss << this->get_class_name() <<": (" << xLine << "," << yLine<<")";
+    return ss.str();
         );
 
     };

@@ -1,6 +1,6 @@
 #include"chengine/events/event.h"
 
-using KeyCode=char;
+using KeyCode=int;
 
 namespace chengine {
 

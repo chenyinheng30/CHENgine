@@ -51,7 +51,9 @@ namespace chengine
             Event_Fn(const FN& fn):Fn_Base(fn){};
             virtual const bool operator()(const Event* e)override
             {
-                return std::any_cast<FN>(this->__fn)(dynamic_cast<const EVENT*>(e));
+                FN fn = std::any_cast<FN>(this->__fn);
+                const EVENT* event = dynamic_cast<const EVENT*>(e);
+                return fn(event);
             }
         };
     public:

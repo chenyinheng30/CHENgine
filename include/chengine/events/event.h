@@ -32,30 +32,39 @@ namespace chengine
         CE_DEFINE_GET_STATIC_TYPE(Event);
         virtual const EventCategory& get_category_flags()const=0;
     };
-
+    template<typename CB,typename RE,typename AG>
+    class CallBackBase
+    {
+    protected:
+        CB _fn;
+    public:
+        CallBackBase(const CB& fn):_fn(fn){};
+        virtual RE operator()(AG* e)=0;
+    };
+    template<typename EVENT,typename FN>
+    class Event_Fn:public CallBackBase<std::any,const bool,const Event>
+    {
+    public:
+        Event_Fn(const FN& fn):CallBackBase(fn){};
+        virtual const bool operator()(const Event* e)override
+        {
+            FN fn = std::any_cast<FN>(this->_fn);
+            const EVENT* event = dynamic_cast<const EVENT*>(e);
+            return fn(event);
+        }
+    };
     class EventDispatcher
     {
-        class Fn_Base
-        {
-        protected:
-            std::any __fn;
-        public:
-            Fn_Base(const std::any& fn):__fn(fn){};
-            virtual const bool operator()(const Event* e)=0;
-        };
-        std::unordered_map<std::type_index,Fn_Base*> __event_map;
-        template<typename EVENT,typename FN>
-        class Event_Fn:public Fn_Base
-        {
-        public:
-            Event_Fn(const FN& fn):Fn_Base(fn){};
-            virtual const bool operator()(const Event* e)override
-            {
-                FN fn = std::any_cast<FN>(this->__fn);
-                const EVENT* event = dynamic_cast<const EVENT*>(e);
-                return fn(event);
-            }
-        };
+        // class Fn_Base
+        // {
+        // protected:
+        //     std::any __fn;
+        // public:
+        //     Fn_Base(const std::any& fn):__fn(fn){};
+        //     virtual const bool operator()(const Event* e)=0;
+        // };
+        std::unordered_map<std::type_index,\
+        CallBackBase<std::any,const bool,const Event>*> __event_map;
     public:
         EventDispatcher()=default;
         ~EventDispatcher()
@@ -66,11 +75,12 @@ namespace chengine
             }
         };
         /* 传入一个临时的函对象的右值引用 */
-        template<typename EVENT,typename FN>void push_back(FN&& fn)
+        template<typename EVENT,typename FN,\
+        template<typename,typename>typename EF=Event_Fn>void push_back(FN&& fn)
         {
             /*将添加一个断言，判断EVENT是否是Event的子类 */
             __event_map[EVENT::get_static_type()] = \
-            new Event_Fn<EVENT,FN>(std::move(fn));
+            new EF<EVENT,FN>(std::move(fn));
         };
         bool dispatch(Event* e)
         {
@@ -88,8 +98,10 @@ namespace chengine
     template<typename EVENT,typename FN>
     class EventHandleSList
     {
+        static EventHandleSList __sList;
         std::vector<FN> __handle_list;
     public:
+        EventHandleSList();
         void push_back(const FN&& fn)
         {
             __handle_list.push_back(fn);

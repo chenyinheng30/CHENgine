@@ -53,16 +53,9 @@ namespace chengine
             return fn(event);
         }
     };
+    template<template<typename,typename>typename EF=Event_Fn>
     class EventDispatcher
     {
-        // class Fn_Base
-        // {
-        // protected:
-        //     std::any __fn;
-        // public:
-        //     Fn_Base(const std::any& fn):__fn(fn){};
-        //     virtual const bool operator()(const Event* e)=0;
-        // };
         std::unordered_map<std::type_index,\
         CallBackBase<std::any,const bool,const Event>*> __event_map;
     public:
@@ -75,8 +68,7 @@ namespace chengine
             }
         };
         /* 传入一个临时的函对象的右值引用 */
-        template<typename EVENT,typename FN,\
-        template<typename,typename>typename EF=Event_Fn>void push_back(FN&& fn)
+        template<typename EVENT,typename FN>void push_back(FN&& fn)
         {
             /*将添加一个断言，判断EVENT是否是Event的子类 */
             __event_map[EVENT::get_static_type()] = \

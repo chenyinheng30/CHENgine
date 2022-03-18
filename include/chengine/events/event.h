@@ -32,32 +32,65 @@ namespace chengine
         CE_DEFINE_GET_STATIC_TYPE(Event);
         virtual const EventCategory& get_category_flags()const=0;
     };
-    template<typename CB,typename RE,typename AG>
+    template<typename RE,typename AG>
     class CallBackBase
     {
-    protected:
-        CB _fn;
     public:
-        CallBackBase(const CB& fn):_fn(fn){};
+        CallBackBase(){};
         virtual RE operator()(AG* e)=0;
     };
-    template<typename EVENT,typename FN>
-    class Event_Fn:public CallBackBase<std::any,const bool,const Event>
+    template<typename F,typename FN>
+    class ECallBack:public CallBackBase<void,Event>
+    {
+    protected:
+        F __fn;
+    public:
+        ECallBack()=default;
+        virtual void add_fn(const FN&& fn)=0;
+    };
+    
+    template<typename EF>
+    class ECallBackFactory
     {
     public:
-        Event_Fn(const FN& fn):CallBackBase(fn){};
-        virtual const bool operator()(const Event* e)override
-        {
-            FN fn = std::any_cast<FN>(this->_fn);
-            const EVENT* event = dynamic_cast<const EVENT*>(e);
-            return fn(event);
-        }
+        virtual EF* create_event_callback()=0;
     };
-    template<template<typename,typename>typename EF=Event_Fn>
+
+    template<typename EF>
+    class DECallBackFactory:public ECallBackFactory<EF>
+    {
+    public:
+        virtual EF* create_event_callback()override{
+            return new EF();
+        };
+    };
+
+    template<typename EVENT,typename FN>
+    class Event_Fn:public ECallBack<FN,FN>
+    {
+        Event_Fn()=default;
+    public:
+        virtual void operator()(Event* e)override
+        {
+            FN fn = this->__fn;
+            const EVENT* event = dynamic_cast<const EVENT*>(e);
+            if(fn(event))
+                e->handle();
+        }
+        virtual void add_fn(const FN&& fn)override
+        {
+            this->__fn = fn;
+        }
+        template<typename EF>
+        friend EF* DECallBackFactory<EF>::create_event_callback();
+    };
+
+    template<template<typename,typename>typename EF=Event_Fn,\
+    template<typename>typename CBF=DECallBackFactory>
     class EventDispatcher
     {
         std::unordered_map<std::type_index,\
-        CallBackBase<std::any,const bool,const Event>*> __event_map;
+        CallBackBase<void,Event>*> __event_map;
     public:
         EventDispatcher()=default;
         ~EventDispatcher()
@@ -71,41 +104,61 @@ namespace chengine
         template<typename EVENT,typename FN>void push_back(FN&& fn)
         {
             /*将添加一个断言，判断EVENT是否是Event的子类 */
-            __event_map[EVENT::get_static_type()] = \
-            new EF<EVENT,FN>(std::move(fn));
+            if(__event_map.count(EVENT::get_static_type()))
+            {
+                dynamic_cast<EF<EVENT,FN>*>(__event_map[EVENT::get_static_type()])->add_fn(std::move(fn));
+            }else{
+                CBF<EF<EVENT,FN>> cbf;
+                auto ef = cbf.create_event_callback();
+                ef->add_fn(std::move(fn));
+                __event_map[EVENT::get_static_type()] = ef;
+            }
         };
         bool dispatch(Event* e)
         {
+            if(e->is_handle())
+                return true;
             auto menber=__event_map.find(e->get_event_type());
             if(menber!=__event_map.end())
             {
-                if((*(menber->second))(e))
-                    e->handle();
+                (*(menber->second))(e);
                 return true;
             }
             return false;
         };
     };
-
-    template<typename EVENT,typename FN>
-    class EventHandleSList
+    template<typename EF>
+    class EventHandleSListFactory:public ECallBackFactory<EF>
     {
-        static EventHandleSList __sList;
-        std::vector<FN> __handle_list;
+        static EF* __ef;
     public:
-        EventHandleSList();
-        void push_back(const FN&& fn)
+        virtual EF* create_event_callback()override
         {
-            __handle_list.push_back(fn);
-        };
-        void operator()(EVENT* e)
-        {
-            for(auto& fn:__handle_list)
-            {
-                if(fn(e))
-                    e->handle();
-            }
+            __ef=new EF();
+            return __ef;
         };
     };
-
+    template<typename EVENT,typename FN>
+    class EventHandleSList:public ECallBack<std::vector<FN>,FN>
+    {
+        EventHandleSList()=default;
+    public:
+        virtual void add_fn(const FN&& fn)override
+        {
+            this->__fn.push_back(std::move(fn));
+        };
+        virtual void operator()(Event* e)override
+        {
+            for(auto& fn:this->__fn)
+            {
+                if(fn(dynamic_cast<const EVENT*>(e)))
+                {
+                    e->handle();
+                    break;
+                }
+            }
+        };
+        template<typename EF>
+        friend EF* EventHandleSListFactory<EF>::create_event_callback();
+    };
 }

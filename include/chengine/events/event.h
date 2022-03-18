@@ -130,12 +130,11 @@ namespace chengine
     template<typename EF>
     class EventHandleSListFactory:public ECallBackFactory<EF>
     {
-        static EF* __ef;
     public:
         virtual EF* create_event_callback()override
         {
-            __ef=new EF();
-            return __ef;
+            static EF* ef=new EF();
+            return ef;
         };
     };
     template<typename EVENT,typename FN>

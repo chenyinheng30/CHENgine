@@ -1,7 +1,14 @@
 LICENSE+VERSION
 self:
-(none)
-(none)
+(none)-source
+(none)[]
++https://github.com/chenyinheng30/CHENgine
 spdlog:
-(v1.9.2)
+(v1.9.2)-source
 (MIT)[./spdlog/LICENSE]
++https://github.com/gabime/spdlog
+glfw:
+(v3.3.6)-binaries
+(master)-source
+(zlib)[./glfw\LICENSE.md]
++https://github.com/glfw/glfw

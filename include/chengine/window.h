@@ -1,7 +1,7 @@
 #pragma once
 /*开始构建window的抽象*/
 
-struct WindowProps
+struct WindowPpropertys
 {
     unsigned int width, height;
     std::string title;
